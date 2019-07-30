@@ -23,5 +23,16 @@ export default new Router({
         {path:'/*',components : {contentLayout :  ErrorPage}}
       ]
     },
+    {
+      path: '/prc',
+      component: prcdata,
+      children : [
+        {path:'prcid',components : {contentLayout :  prcid}},
+        {path:'ss',components : {contentLayout :  ss}},
+        {path:'data',components : {contentLayout :  data}},
+        {path:'error',components : {contentLayout :  ErrorPage}},
+        {path:'/*',components : {contentLayout :  ErrorPage}}
+      ]
+    },
   ]
 })
