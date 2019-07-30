@@ -21,9 +21,9 @@ export default {
             this.$router.go(-1);
         },
         accessTokenUpdate (loginToken,loginCheck) {
-            //로그인후 토큰값 갱신
+
             let keyName = this.$store.state.keyName;
-            //콜백처리이후 지갑이동
+
             function setKey(callback){
                 return new Promise((resolve,reject)=>{
                     setAccessToken(keyName,loginToken,(result)=>{
@@ -80,7 +80,7 @@ export default {
         }
     },
     mounted() {
-        //로그인에서 이벤트 받기?
+
         eventBus.$on('loginToken',this.accessTokenUpdate);
     },
 }
