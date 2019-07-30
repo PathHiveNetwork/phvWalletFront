@@ -23,7 +23,7 @@
 import { eventBus } from '../../main.js';
 
 const passwordCheck = function(pw){
-    const regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{30,}$/
+    const regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{24,}$/
     let regSuccess = false
     if(regExp.test(pw)){
         regSuccess = true
