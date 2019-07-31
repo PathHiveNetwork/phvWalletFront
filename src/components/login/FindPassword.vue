@@ -145,6 +145,10 @@ export default {
     },
     updated (){
         this.message = `Get an authorization number`//\n(Retry)
+    },
+    make() {
+        eventBus.$emit('makeStatus', true);
+        console.log('make sattus);
     }
 }
 </script>
