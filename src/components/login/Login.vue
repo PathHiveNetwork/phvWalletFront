@@ -14,15 +14,16 @@
                 </div>
             </div>
             <div class="main_btn_box">
-                <div class="sub_btn_box" @click="onLoginCheck(email,password)">
+                <div class="sub_btn_box" @click="onLoginCheck(email,password, securityVal)">
                     <span type="submit" value="Login">LOGIN</span>
                 </div>      
             </div>
             <div class="findMsgDiv">   
                 <router-link to="findPassword" class="routerlink"><span>{{findMsg}}</span></router-link> 
             </div>  
+            <span id="securityVal" />
         </form>
-    </div>    
+    </div> 
 </template>
 
 <script>
@@ -39,16 +40,17 @@ export default {
         return {
             email: '',
             password: '',
+            securityVal: '',
             msg: '',
             findMsg : 'Forgotten your password?',
             check : false
         }
     },
     methods: {
-        onLoginCheck(email, password) {
+        onLoginCheck(email, password, securityVal) {
             var keyName = this.$store.state.keyName;
             // LOGIN 액션 실행     
-            if(this.email !== '' && this.password !== ''){
+            if(this.email !== '' && this.password !== '' && this.securityVal !== ''){
                 eventBus.$emit('event','loading');
                 function getToken(callback){
                     return new Promise(function(resolve,reject){
@@ -63,7 +65,7 @@ export default {
                     })
                 }
                 getToken().then((accessToken)=>{
-                    this.$store.dispatch('LOGIN', {accessToken,email, password})
+                    this.$store.dispatch('LOGIN', {accessToken,email, password, securityVal})
                     .then(() =>{
                         //console.log(this.$store.state.test.check);
                         if(this.$store.state.loginInfo.success){
@@ -82,7 +84,6 @@ export default {
                 })
             }else{
                 eventBus.$emit('eventPopup','Please enter your email and password');
-                //alert('Please enter your email and password');
             }
         },
         goToPages () {
