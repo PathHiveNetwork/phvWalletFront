@@ -6,43 +6,34 @@ Vue.use(Vuex)
 
 const resourceHost = 'http://localhost:3000'
 
-//const coinHost = 'http://52.78.60.93:8000/api/coin'
-
-const coinHost = 'http://52.79.252.67:7000/api/coin'
+const coinHost = 'http://127.0.0.1:7000/api/coin'
 
 
-const authHost = 'http://52.79.252.67:7000/api/auth'
+const authHost = 'http://127.0.0.1:7000/api/auth'
 
 
 export default new Vuex.Store({
   
   state: {
-    //토큰값
+    securityVal: '',
     accessToken: [],
-    //로그인 정보
     loginInfo : [],
-    //이메일 인증
     emailAuthInfo : [],
-    //이메일 인증번호
     emailAuthNum : [],
-    //비밀번호 변경
     changePwStatus : [],
-    //지갑정보 저장 예정
     walletInfo : [],
-    //신규 지갑주소
     newAddressToken : [],
-    //인증키네임
     keyName : 'accessToken',
-    //유저 이메일
     userEmail : ''
   },
   getters: {
     
   },
   mutations: {
-    LOGIN (state, result,email) {
+    LOGIN (state, result,email, securityVal) {
       state.userEmail = email
       state.loginInfo = result
+      state.securityVal = securityVal;
       //고유 보안 토큰 설정 예정
 
     },
@@ -67,7 +58,7 @@ export default new Vuex.Store({
   actions: {
     LOGIN ({commit}, {accessToken,email, password}) {
       let token = 'Bearer'+' '+accessToken
-      return axios.post(`${authHost}/login`, {'email' : email,'password': password},{headers:{Authorization : token}})
+      return axios.post(`${authHost}/login`, {'email' : email,'password': password, 'scval':securityVal},{headers:{Authorization : token}})
       .then(({data}) => {
         commit('LOGIN', data,email)
         }
